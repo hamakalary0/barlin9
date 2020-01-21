@@ -5,18 +5,6 @@ exports.run = async (client, msg, args) => {
             m.delete()
         }, 3000);
     })
-
-        if (args[0] === "bots") {
-        let awaitBotMessages = await msg.channel.messages.fetch({limit: 100})
-        let botFilter = awaitBotMessages.filter(obj => obj.author.bot)
-
-        msg.channel.bulkDelete(botFilter)
-        msg.reply('done.').then(m => m.delete({timeout: 5000}))
-
-        return;
-    }
-    
-
     if (msg.mentions.users.size > 0) {
         let amountToDelete = args[1]
 
@@ -30,6 +18,28 @@ exports.run = async (client, msg, args) => {
         msg.reply('done.').then(m => m.delete({timeout: 3000}))
         return;
     }
+    
+        if (args[0] === "bots") {
+        let awaitBotMessages = await msg.channel.messages.fetch({limit: 100})
+        let botFilter = awaitBotMessages.filter(obj => obj.author.bot)
+
+        msg.channel.bulkDelete(botFilter)
+        msg.reply('done.').then(m => m.delete({timeout: 5000}))
+
+        return;
+    }
+    
+        if (args[0] === "images") {
+        let awaitImageMessages = await msg.channel.messages.fetch({limit: 100})
+        let imageFilter = awaitImageMessages.filter(obj => obj.attachments.size > 0)
+        
+        msg.channel.bulkDelete(imageFilter)
+
+        msg.reply('done.').then(m => m.delete({timeout: 5000}))
+        return;
+    }
+    
+
 
     if (args[0] === "all") {
        let messages = 0;
