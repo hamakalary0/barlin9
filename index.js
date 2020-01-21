@@ -98,7 +98,7 @@ client.on('message', (msg) => {
 
     let points = Math.floor(Math.random(client.settings.get(msg.guild.id, "xpgain")[0].first) * client.settings.get(msg.guild.id, "xpgain")[0].second)
     let randomcooldown = Math.floor(Math.random() * 8000) + 5000;
-      if (cooldown.has(`${msg.author.id}-${msg.guild.id}`)) {
+      if (cooldown.has(`${msg.author.id}-${msg.guild.id}`) || msg.author.lastMessage.content === msg.content) {
           points = 0;
       }
 
