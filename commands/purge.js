@@ -1,4 +1,3 @@
-
 exports.run = async (client, msg, args) => {
 
     if (!msg.member.hasPermission('MANAGE_MESSAGES')) return msg.channel.send('You do not have the required permission to use this command.').then(m => {
@@ -7,14 +6,26 @@ exports.run = async (client, msg, args) => {
         }, 3000);
     })
 
-    if (args[0] === "all") {
 
+    if (msg.mentions.users.size > 0) {
+        let amountToDelete = args[1]
+
+        if (!args[1]) amountToDelete = 50;
+
+        if (parseInt(amountToDelete) > 100) return msg.reply('Invalid arguments, integer may not exceed `100`.')
+        let userMessages = await msg.channel.messages.fetch({limit: parseInt(amountToDelete)})
+        let userFilter = userMessages.filter(obj => obj.user.id === msg.mentions.users.first().id)
+
+        msg.channel.bulkDelete(userFilter)
+        msg.reply('done.').then(m => m.delete({timeout: 3000}))
+        return;
+    }
+
+    if (args[0] === "all") {
        let messages = 0;
        let i = true;
        while(i) {
-          
        let deleteAble = await msg.channel.messages.fetch({limit: 100})
-
        if(deleteAble.size < 100) {
        	await msg.channel.bulkDelete(deleteAble)
        	 messages += deleteAble.size;
@@ -23,19 +34,9 @@ exports.run = async (client, msg, args) => {
        	 messages = 0;
        	 return;
        }
-
        await msg.channel.bulkDelete(deleteAble)
-
        messages += deleteAble.size
-
-
        }
-       
-       
-
-
-
-
     } else if(typeof(parseInt(args[0])) == "number") {
         if (parseInt(args[0]) > 100) return msg.reply(`must be a valid integer below or exact 100, otherwise use !purge all.`)
         let messages = await msg.channel.messages.fetch({ limit: parseInt(args[0]) })
