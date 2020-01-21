@@ -6,6 +6,16 @@ exports.run = async (client, msg, args) => {
         }, 3000);
     })
 
+        if (args[0] === "bots") {
+        let awaitBotMessages = await msg.channel.messages.fetch({limit: 100})
+        let botFilter = awaitBotMessages.filter(obj => obj.author.bot)
+
+        msg.channel.bulkDelete(botFilter)
+        msg.reply('done.').then(m => m.delete({timeout: 5000}))
+
+        return;
+    }
+    
 
     if (msg.mentions.users.size > 0) {
         let amountToDelete = args[1]
