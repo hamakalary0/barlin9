@@ -397,6 +397,51 @@ client.on('guildMemberAdd', (member) => {
 
 
 })
+
+client.on('voiceStateUpdate', (oldMember, newMember) => {
+
+  if (client.settings.get(oldMember.guild.id, "userchannelcreate").length === 0) return;
+
+  if(client.settings.get(oldMember.guild.id, "userchannelcreate") === newMember.voiceChannelID) {
+     oldMember.guild.channels.create(oldMember.user.username, { type: "voice"} ).then(c => {
+       c.setParent(client.settings.get(oldMember.guild.id, "userchannelcreate").category)
+       client.settings.push(newMember.guild.id, { channel: c.id ,author: newMember.id }, "userchannels")
+       newMember.setVoiceChannel(c)
+       c.overwritePermissions({
+        permissionOverwrites: [
+          {
+            id: newMember.user.id,
+            allow: ['CONNECT'],
+          },
+          {
+            id: newMember.guild.id,
+            deny: ["CONNECT"],
+          }
+        ],
+          reason: 'Updated user channel!'
+        });
+     })
+     return;
+  } 
+
+
+  if(!client.settings.get(oldMember.guild.id, "userchannels").includes(newMember.voiceChannelID)) return;
+
+
+  if (oldMember.voiceChannelID.members.size <= 0) oldMember.user.send("You have left a personal voice channel, it will be removed in 30 seconds unless you join back. (because it is empty)")
+  setTimeout(() => {
+  if (oldMember.voiceChannel.members.size <= 0) {
+      if(!client.channels.get(oldMember.voiceChannelID)) return;
+      client.channels.get(oldMember.voiceChannelID).delete()
+  }
+}, 30000);
+
+
+
+
+
+})
+
 String.prototype.replaceAll = function(search, replacement) {
   var target = this;
   return target.split(search).join(replacement);
