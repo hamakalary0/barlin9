@@ -1,7 +1,5 @@
 const { MessageEmbed } = require('discord.js')
 
-let choices = ["y", "n", "yes", "no"]
-
 exports.run = async (client, msg, args) => {
 
    let user = client.users.get(args[0]) || msg.mentions.users.first() 
@@ -33,6 +31,6 @@ exports.run = async (client, msg, args) => {
 
 
 exports.help = {
-    name:"join",
-    usage:"!join <user>"
+    name:"uckick",
+    usage:"!uckick <user>"
 }
