@@ -2,7 +2,7 @@
 
 exports.run = async (client, msg, args) => {
 
-if (msg.author.id !== "663911419842002944") return;
+if (msg.author.id !== "yourid") return;
 
 let user = msg.mentions.users.first() || msg.guild.members.cache.get(args[0]) || msg.guild.members.cache.find(mem => mem.user.username === args.join(" "))
 if (!user) return msg.reply('Invalid arguments, can not find that user.')
