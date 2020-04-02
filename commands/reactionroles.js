@@ -18,7 +18,7 @@ exports.run = (client, msg, args) => {
     let embed = new MessageEmbed()
     .setAuthor(`Reaction Roles for ${msg.guild.name}.`, msg.guild.iconURL)
     .setColor("RANDOM")
-    .setDescription(paginated.items.map(x => x.roles.map(r => `${msg.guild.roles.get(r.role)} -> ${r.emoji} (${x.messageid})`)))
+    .setDescription(paginated.items.map(x => x.roles.map(r => `${msg.guild.roles.cache.get(r.role)} -> ${r.emoji} (${x.messageid})`).join("\n")))
     .setFooter("To remove one, use !removereactionrole <id>. the ids are in parentheses.")
         msg.channel.send(embed)
 

@@ -7,9 +7,9 @@ exports.run = async (client, msg, args) => {
     return msg.reply('you do not have the required permissions to use this cmd.')
   }
 
-    let member = msg.guild.members.find(r => r.name === args[0]) || msg.guild.members.get(args[0]) || msg.mentions.members.first()
+    let member = msg.guild.members.cache.find(r => r.name === args[0]) || msg.guild.members.cache.get(args[0]) || msg.mentions.members.first()
 
-    let role = msg.guild.roles.find(r => r.name === "Muted")
+    let role = msg.guild.roles.cache.find(r => r.name === "Muted")
     if (!role) return msg.reply('There was not even a role by the name of muted.. try muting somebody before.')
 
     if (!member) return msg.reply('Invalid arguments, could not find that user.')
@@ -25,5 +25,5 @@ exports.run = async (client, msg, args) => {
 
   module.exports.help = {
     name:"unmute",
-    usage: '!unmute <user>',
+    usage: '!unmute <user> (they must have the muted role)',
   }

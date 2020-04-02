@@ -7,7 +7,7 @@ exports.run = (client, msg, args) => {
         }, 3000);
     })
     if (!args[0]) return msg.channel.send('You forgot to give me the name of a channel.')
-    let channel = msg.guild.channels.find(c => c.name === args[0]) || msg.mentions.channels.first()
+    let channel = msg.guild.channels.cache.find(c => c.name === args[0]) || msg.mentions.channels.first()
     if (!channel) return msg.channel.send('I could not find a channel with the name of `' + args[0] + '`')
 
     client.settings.set(msg.guild.id, channel.id, "channel")

@@ -14,7 +14,7 @@ exports.run = (client, msg, args) => {
     msg.reply('Successfully disabled the roles channel.')
     return;
   }
-  let channel = msg.guild.channels.find(c => c.name === args[0]) || msg.mentions.channels.first()
+  let channel = msg.guild.channels.cache.find(c => c.name === args[0]) || msg.mentions.channels.first()
 
   if (!channel) return msg.channel.send('I could not find that channel!')
 

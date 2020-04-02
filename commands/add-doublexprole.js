@@ -1,9 +1,8 @@
 
-let { MessageEmbed } = require('discord.js')
 exports.run = (client, msg, args) => {
 
 if (!msg.member.hasPermission("ADMINISTRATOR")) return msg.reply('You do not have the required permission to use this command.').then(m => m.delete({timeout: 5000}))
-  let role = msg.guild.roles.find(r => r.name.toLowerCase() === args.join(" ").toLowerCase()) || msg.guild.roles.get(args[0]) || msg.mentions.roles.first()
+  let role = msg.guild.roles.cache.find(r => r.name.toLowerCase() === args.join(" ").toLowerCase()) || msg.guild.roles.cache.get(args[0]) || msg.mentions.roles.first()
   if(!role) return msg.reply('I could not find a role by the name of that.').then(m => m.delete({timeout: 5000}))
 
  let arr = client.settings.get(msg.guild.id, "doublexproles")

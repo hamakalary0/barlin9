@@ -1,4 +1,3 @@
-const { MessageEmbed } = require('discord.js')
 exports.run = async (client, msg, args) => {
 
   if (!msg.member.hasPermission('ADMINISTRATOR')) return msg.channel.send('You do not have the required permission to use this command.').then(m => {
@@ -7,7 +6,7 @@ exports.run = async (client, msg, args) => {
         }, 3000);
     })
 
-    let role = msg.guild.roles.find(r => r.name == args.join(" ")) || msg.mentions.roles.first() || msg.guild.roles.get(args[0])
+    let role = msg.guild.roles.cache.find(r => r.name == args.join(" ")) || msg.mentions.roles.first() || msg.guild.roles.cache.get(args[0])
 
     if (!role) return msg.reply('I could not find that role.')
 

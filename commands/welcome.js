@@ -31,9 +31,9 @@ exports.run = async (client, msg, args) => {
             time: 30000,
         })
 
-        let channel = msg.guild.channels.get(channelContent.first().content.toLowerCase()) || msg.guild.channels.find(c => c.name === channelContent.first().content.toLowerCase()) || channelContent.first().mentions.channels.first()
+        let channel = msg.guild.channels.cache.get(channelContent.first().content.toLowerCase()) || msg.guild.channels.cache.find(c => c.name === channelContent.first().content.toLowerCase()) || channelContent.first().mentions.channels.first()
 
-        msg.channel.send(`Successfully updated welcome logging to ${client.channels.get(channel.id)} :thumbsup:`).then(m => setTimeout(() => {
+        msg.channel.send(`Successfully updated welcome logging to ${client.channels.cache.get(channel.id)} :thumbsup:`).then(m => setTimeout(() => {
                m.delete()
         }, 6000))
         client.settings.set(msg.guild.id, channel.id, "welcomechannel")

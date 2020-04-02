@@ -1,10 +1,17 @@
-
+const { MessageEmbed } = require('discord.js')
 exports.run = async (client, msg, args) => {
 
-let user = msg.mentions.users.first() || client.users.get(args[0])
-  if (!user) return msg.reply('Invalid arguments, can not find user.')
+let user = msg.mentions.users.first() || client.users.cache.get(args[0])
+  if (!user) user = msg.author
 
-  msg.channel.send(user.displayAvatarURL({format: 'png', size: 2048}))
+
+
+
+  let embed = new MessageEmbed()
+  .setAuthor(`${user.tag}`, user.displayAvatarURL({size: 2048}))
+  .setImage(user.displayAvatarURL())
+  .setColor("RANDOM")
+  msg.channel.send(embed)
 
 }
 

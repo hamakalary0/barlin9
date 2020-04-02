@@ -17,7 +17,7 @@ exports.run = (client, msg, args) => {
     let embed = new MessageEmbed()
     .setAuthor(`Level Roles for ${msg.guild.name}.`, msg.guild.iconURL)
     .setColor("#FFC0CB")
-    .setDescription(paginated.items.map(x => `${msg.guild.roles.get(x.role).toString()} -> **(${x.level})**`))
+    .setDescription(paginated.items.map(x => `${msg.guild.roles.cache.get(x.role) ? msg.guild.roles.cache.get(x.role).toString() : "Unknown Role"} -> **(${x.level})**`))
         msg.channel.send(embed)
 
 }

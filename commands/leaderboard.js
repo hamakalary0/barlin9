@@ -15,7 +15,7 @@ exports.run = (client, msg, args) => {
     .setColor("RANDOM")
     .setDescription(paginated.items.map(user => 
     
-        client.users.get(user.id) ? `${thing++}. ` + `**${client.users.get(user.id).tag}** \`${user.level}\` 🔰` : "Unknown User").join("\n"))
+        client.users.cache.get(user.id) ? `${thing++}. ` + `**${client.users.cache.get(user.id).tag}** \`${user.level}\` 🔰` : "Unknown User").join("\n"))
         msg.channel.send(embed)
 
 }

@@ -6,11 +6,17 @@ exports.run = async (client, msg, args) => {
         }, 3000);
     })
 
+if (args[0] === "all") {
+	client.reactionroles.set(msg.guild.id, [], "roles")
+	msg.reply('Successfully removed all reaction roles.')
+	return;
+}
+
     let array = client.reactionroles.get(msg.guild.id, "roles")
  
    
 
-    let role = msg.guild.roles.get(args[1]) || msg.guild.roles.find(r => r.name === args.join(" ").slice(args[0].length + 1)) || msg.mentions.roles.first()
+    let role = msg.guild.roles.cache.get(args[1]) || msg.guild.roles.cache.find(r => r.name === args.join(" ").slice(args[0].length + 1)) || msg.mentions.roles.first()
   
     if (!role) return msg.reply('I could not find that role in ur server.')
 

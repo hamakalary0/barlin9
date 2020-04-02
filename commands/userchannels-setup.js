@@ -3,7 +3,7 @@ const { MessageEmbed } = require('discord.js')
 
 exports.run = async (client, msg, args) => {
 
-    if (!msg.member.hasPermissons("ADMINISTRATOR")) {
+    if (!msg.member.permissions.has("ADMINISTRATOR")) {
         return msg.reply('You do not have the required permissions to use that command!')
     }
     let createParent = await msg.guild.channels.create("User Channels", { type: "category" } )

@@ -6,7 +6,7 @@ exports.run = (client, msg, args) => {
     let arr = client.settings.get(msg.guild.id, "messageroles")
     if (msg.channel.id !== client.settings.get(msg.guild.id, "roleschannel")) return;
 
-    let role = msg.guild.roles.find(r => r.name.toLowerCase() === args.join(" ").toLowerCase()) || msg.mentions.roles.first()
+    let role = msg.guild.roles.cache.find(r => r.name.toLowerCase() === args.join(" ").toLowerCase()) || msg.mentions.roles.first()
         if (!role) {
     	msg.delete()
        msg.reply('Could not find that role, try again.').then(m => setTimeout(() => {

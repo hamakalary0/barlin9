@@ -16,7 +16,7 @@ exports.run = (client, msg, args) => {
     let embed = new MessageEmbed()
     .setAuthor(`No XP gaining Roles for ${msg.guild.name}.`, msg.guild.iconURL)
     .setColor("RANDOM")
-    .setDescription(paginated.items.map(x => `${msg.guild.roles.get(x).toString()}`))
+    .setDescription(paginated.items.map(x => `${msg.guild.roles.cache.get(x).toString()}`))
         msg.channel.send(embed)
 
 }

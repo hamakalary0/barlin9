@@ -1,4 +1,3 @@
-const { MessageEmbed } = require('discord.js')
 
 exports.run = (client, msg, args) => {
 
@@ -11,7 +10,7 @@ exports.run = (client, msg, args) => {
     if (!args[args.length-1]) return msg.channel.send('You forgot to specify a level for the role to be given at.')
 
    
-    let role = msg.guild.roles.find(r => r.name === args.slice(0, args.length-1).join(" ")) || msg.guild.roles.get(args.slice(0, args.length-1).join(" ")) || msg.mentions.roles.first()
+    let role = msg.guild.roles.cache.find(r => r.name === args.slice(0, args.length-1).join(" ")) || msg.guild.roles.cache.get(args.slice(0, args.length-1).join(" ")) || msg.mentions.roles.first()
    // if (msg.guild.roles.get(args[0])) role = msg.guild.roles.get(args[0])
    // if (msg.guild.roles.find(r => r.name === args[0])) role = msg.guild.roles.find(r => r.name === args[0])
 
@@ -24,7 +23,7 @@ exports.run = (client, msg, args) => {
     let array = client.settings.get(msg.guild.id, "roles")
 
     let data = array.findIndex(obj => obj.level === parseInt(args[args.length-1]))
-    let data2 = array.findIndex(obj => obj.role === msg.guild.roles.get(role.id).name)
+    let data2 = array.findIndex(obj => obj.role === msg.guild.roles.cache.get(role.id).name)
 
 
     if (data2 > -1) return msg.channel.send('You have already enabled a role with that name to be assigned.')
@@ -32,7 +31,7 @@ exports.run = (client, msg, args) => {
 
 
     client.settings.push(msg.guild.id, {level: parseInt(args[args.length-1]), role: role.id }, "roles")
-    msg.channel.send(`Successfully added ${msg.guild.roles.get(role.id).toString()} to level ${args[args.length-1]} 👍`)
+    msg.channel.send(`Successfully added ${msg.guild.roles.cache.get(role.id).toString()} to level ${args[args.length-1]} 👍`)
 
 }
 

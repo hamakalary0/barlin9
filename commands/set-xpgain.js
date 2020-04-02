@@ -35,5 +35,5 @@ exports.run = (client, msg, args) => {
 
 module.exports.help = {
     name:"set-xpgain",
-    usage:"!set-xpgain 0 30 (0-30)."
+    usage:"!set-xpgain <first integer> <second integer>\nExample: !set-xpgain 0 30 (0-30)"
   }

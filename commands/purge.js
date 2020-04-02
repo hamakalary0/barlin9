@@ -10,9 +10,10 @@ exports.run = async (client, msg, args) => {
 
         if (!args[1]) amountToDelete = 50;
 
+        console.log(amountToDelete)
         if (parseInt(amountToDelete) > 100) return msg.reply('Invalid arguments, integer may not exceed `100`.')
         let userMessages = await msg.channel.messages.fetch({limit: parseInt(amountToDelete)})
-        let userFilter = userMessages.filter(obj => obj.user.id === msg.mentions.users.first().id)
+        let userFilter = userMessages.filter(obj => obj.author.id === msg.mentions.users.first().id)
 
         msg.channel.bulkDelete(userFilter)
         msg.reply('done.').then(m => m.delete({timeout: 3000}))
@@ -71,5 +72,5 @@ exports.run = async (client, msg, args) => {
 
 module.exports.help = {
     name:"purge",
-    usage: "!purge all | !purge <amount>"
+    usage: "!purge all | !purge <amount> | !purge images | !purge bots | !purge @user"
   }

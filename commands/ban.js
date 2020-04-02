@@ -1,5 +1,4 @@
 
-const { MessageEmbed } = require('discord.js')
 
 exports.run = async (client, msg, args) => {
     if (!msg.member.hasPermission('BAN_MEMBERS')) return msg.channel.send('You do not have the required permission to use this command.').then(m => {
@@ -8,33 +7,23 @@ exports.run = async (client, msg, args) => {
         }, 3000);
     })
 
-    if (!args[0]) return msg.reply('Invalid arguments, I could not find that user.')
-    let getUser;
-    try {
-    getUser = await client.users.fetch(args[0])
-    } catch(e) {
-      getUser = false;
+    if(!args[0]) return msg.reply('You forgot a user.')
+    let user = msg.guild.members.cache.find(mem => mem.user.username.toLowerCase().startsWith(args[0].toLowerCase())) || msg.mentions.users.first() || client.users.cache.get(args[0])
+    if(!user) {
+      msg.reply('Invalid arguments, I could not find that user.')
+      return;
     }
-
-    if (getUser) {
-         msg.guild.members.ban(getUser.id)
-         msg.reply(`***-${getUser.tag}*** has been banned.`).then(m => m.delete({timeout: 5000}))
-         return;
+    if(msg.guild.member(user).hasPermission("ADMINISTRATOR")) {
+         return msg.reply('that user is an admin i can not ban them.')
     }
- 
-    let user = msg.guild.members.find(mem => mem.user.username.toLowerCase().startsWith(args[0].toLowerCase())) || msg.mentions.users.first()
-
     if (user) {
       if(!msg.guild.member(user).bannable) return msg.reply('This user has a higher role than me or is an `ADMINISTRATOR`.')
-    msg.reply('Banned user ***' + client.users.get(user.id).tag + '***.')
+    msg.reply('Banned user ***' + client.users.cache.get(user.id).tag + '***.')
      msg.guild.member(user).ban()
      return;
     }
 
-    if(!user && !getUser) {
-      msg.reply('Invalid arguments, I could not find that user.')
-      return;
-    }
+
 
 
 }

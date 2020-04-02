@@ -32,11 +32,11 @@ exports.run = async (client, msg, args) => {
 
 
 
-    let member = msg.guild.members.find(r => r.name === args[0]) || msg.guild.members.get(args[0]) || msg.mentions.members.first()
+    let member = msg.guild.members.cache.find(r => r.name === args[0]) || msg.guild.members.cache.get(args[0]) || msg.mentions.members.first()
     if (!member) return msg.reply('Invalid arguments, you forgot a member.')
     if (!args[1]) return msg.reply('you forgot to supply a valid time.')
     let time = args[1]
-    let roletoremove = msg.guild.roles.find(r => r.name === "Muted")
+    let roletoremove = msg.guild.roles.cache.find(r => r.name === "Muted")
 
     if (ms(args[1]) === undefined) {
     	return msg.reply('That was not a valid time, please respond with a valid time.')

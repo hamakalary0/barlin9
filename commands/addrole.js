@@ -6,8 +6,8 @@ exports.run = async (client, msg, args) => {
         }, 3000);
     })
 
-    let user = msg.guild.members.find(mem => mem.user.username === args[0]) || msg.guild.members.get(args[0]) || msg.mentions.users.first()
-    let role = msg.guild.roles.find(r => r.name === args.slice(1, args.length).join(" ")) || msg.guild.roles.get(args.slice(1, args.length).join(" ")) || msg.mentions.roles.first()
+    let user = msg.guild.members.cache.find(mem => mem.user.username === args[0]) || msg.guild.members.cache.get(args[0]) || msg.mentions.users.first()
+    let role = msg.guild.roles.cache.find(r => r.name === args.slice(1, args.length).join(" ")) || msg.guild.roles.cache    .get(args.slice(1, args.length).join(" ")) || msg.mentions.roles.first()
         if (role && user) {
         if (msg.guild.member(user).roles.has(role.id)) {
             msg.channel.send(`-${role.toString()} from ***${user.tag === undefined ? user.user.tag : user.tag}***`)

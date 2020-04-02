@@ -14,9 +14,9 @@ exports.run = (client, msg, args) => {
   let array = client.settings.get(msg.guild.id, "noxproles")
 
   
-  if (!msg.guild.roles.find(r => r.name === args[0])) return msg.channel.send(`I could not find a role with that kind of name, remember it has to be capital letters if it is.`)
+  if (!msg.guild.roles.cache.find(r => r.name === args[0])) return msg.channel.send(`I could not find a role with that kind of name, remember it has to be capital letters if it is.`)
 
-  let role = msg.guild.roles.find(r => r.name === args[0]).id || msg.mentions.roles.first().id 
+  let role = msg.guild.roles.cache.find(r => r.name === args[0]).id || msg.mentions.roles.first().id 
 
   if (array.includes(role)) {
     let index = array.findIndex(obj => obj === role)

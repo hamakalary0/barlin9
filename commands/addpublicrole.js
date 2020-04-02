@@ -1,4 +1,3 @@
-const { MessageEmbed } = require('discord.js')
 
 exports.run = (client, msg, args) => {
 
@@ -9,7 +8,7 @@ exports.run = (client, msg, args) => {
     })
     let arr = client.settings.get(msg.guild.id, "messageroles");
 
-    let role = msg.guild.roles.find(r => r.name == args.join(" ")) || msg.mentions.roles.first() || msg.guild.roles.get(args[0])
+    let role = msg.guild.roles.cache.find(r => r.name == args.join(" ")) || msg.mentions.roles.first() || msg.guild.roles.cache.get(args[0])
     if (!role) return msg.reply('Could not find that role!')
     if (arr.includes(role.id)) {
         msg.reply('That role was already added, removed it.')
@@ -19,7 +18,7 @@ exports.run = (client, msg, args) => {
     }
      
     client.settings.push(msg.guild.id, role.id, "messageroles")
-    msg.reply(`:thumbsup: added ${msg.guild.roles.get(role.id).toString()} to the public roles.`)
+    msg.reply(`:thumbsup: added ${msg.guild.roles.cache.get(role.id).toString()} to the public roles.`)
 }
 
 module.exports.help = {
