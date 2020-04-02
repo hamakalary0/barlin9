@@ -1,7 +1,7 @@
 const { util } = require('discord.js-commando')
 const { MessageEmbed } = require('discord.js')
 exports.run = async (client, msg, args) => {
-    if(!['663911419842002944', '663833360036266042'].includes(msg.author.id)) return;
+    if(!['yourid'].includes(msg.author.id)) return;
 
 let page = args[0]
 if (!page) return msg.reply('Please provide a page.')
